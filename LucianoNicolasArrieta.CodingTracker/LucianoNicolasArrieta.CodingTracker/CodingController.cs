@@ -147,7 +147,7 @@ namespace coding_tracker
                 SQLiteCommand command = new SQLiteCommand(query, myConnection);
                 SQLiteDataReader records = command.ExecuteReader();
 
-                if (records != null)
+                if (records.HasRows)
                 {
                     var tableData = new List<CodingSession>();
 
@@ -159,6 +159,10 @@ namespace coding_tracker
                     }
 
                     ConsoleTableBuilder.From(tableData).ExportAndWriteLine();
+                } else
+                {
+                    Console.Clear();
+                    Console.WriteLine("There is no records between those dates.");
                 }
             }
         }
@@ -173,7 +177,7 @@ namespace coding_tracker
                 SQLiteCommand command = new SQLiteCommand(query, myConnection);
                 SQLiteDataReader records = command.ExecuteReader();
 
-                if (records != null)
+                if (records.HasRows)
                 {
                     var tableData = new List<CodingSession>();
 
@@ -198,6 +202,10 @@ namespace coding_tracker
                     Console.WriteLine("Press any key to continue.");
                     Console.ReadKey();
                     Console.Clear();
+                } else
+                {
+                    Console.Clear();
+                    Console.WriteLine("There is no records. Please enter some coding session before using this option.");
                 }
             }
         }
